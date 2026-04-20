@@ -72,7 +72,7 @@
           <div class="edu-item">
             <div class="edu-item__period">2019 - 2022</div>
             <div class="edu-item__school">Lycée Jean Moulin - Béziers</div>
-            <div class="edu-item__degree">Bac - Histoire Géopolitique, Sciences Politiques, NSI</div>
+            <div class="edu-item__degree">Bac - Histoire Géopolitique, Sciences Politiques, Numériques Sciences Informatiques</div>
             <span class="edu-item__mention">Mention Bien</span>
           </div>
           <div class="edu-item">
@@ -198,6 +198,11 @@
           <br /><br />
           <strong><i>Toute l'équipe salue le travail et l'engagement de Karim, qui ont été un véritable soutien à notre association.</i></strong>
         </blockquote>
+        <div class="theater-signature">
+          <img src="images/signature.png" alt="Signature" class="theater-signature__img" />
+          <div class="theater-signature__name">Damiane Goudet</div>
+          <div class="theater-signature__role">Directrice — Théâtre Beaux Arts Tabard</div>
+        </div>
         <a class="dl-btn" href="ARROUJI.pdf" download>
           <img src="icons/file.svg" alt="" />
           Télécharger l'attestation de stage
@@ -238,20 +243,34 @@
 
 </div>
 <script>
-  const sections = ['section-cv','section-theatre','section-ymg'];
-  const items    = document.querySelectorAll('.float-nav__item');
-  const nav      = document.getElementById('float-nav');
+  const nav   = document.getElementById('float-nav');
+  const items = document.querySelectorAll('.float-nav__item');
 
+  function setActive(id) {
+    items.forEach(a => a.classList.toggle('float-nav__item--active', a.getAttribute('href') === '#' + id));
+  }
+
+  // Show/hide nav on scroll
   window.addEventListener('scroll', () => {
-    let current = sections[0];
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 120) current = id;
-    });
-    items.forEach(a => {
-      a.classList.toggle('float-nav__item--active', a.getAttribute('href') === '#' + current);
-    });
     nav.classList.toggle('float-nav--visible', window.scrollY > 80);
+  });
+
+  // Use IntersectionObserver for accurate section tracking
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  // Also activate last section when near bottom of page
+  window.addEventListener('scroll', () => {
+    const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 80;
+    if (nearBottom) setActive('section-ymg');
+  });
+
+  ['section-cv','section-theatre','section-ymg'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
   });
 </script>
 </body>

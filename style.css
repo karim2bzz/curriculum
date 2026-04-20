@@ -402,9 +402,61 @@ body {
   border-left: 3px solid var(--border);
   padding-left: 18px;
   margin-bottom: 0;
+  position: relative;
+}
+.theater-quote::before {
+  content: '\201C';
+  font-size: 5rem;
+  font-weight: 800;
+  font-style: normal;
+  color: var(--border);
+  line-height: 1;
+  display: block;
+  margin-bottom: -1rem;
+}
+.theater-quote::after {
+  content: '\201D';
+  font-size: 5rem;
+  font-weight: 800;
+  font-style: normal;
+  color: var(--border);
+  line-height: 0;
+  display: block;
+  text-align: right;
+  margin-top: 1rem;
 }
 
 .theater-quote strong { color: var(--text); font-style: normal; font-weight: 700; }
+
+.theater-signature {
+  width: 100%;
+  padding: 20px 0 4px;
+  margin-bottom: 24px;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.theater-signature__img {
+  height: 80px;
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+.theater-signature__name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.theater-signature__role {
+  font-size: 0.80rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 2px;
+}
 
 /* ── BUTTONS ── */
 .dl-btn {
@@ -524,10 +576,13 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
-  background: var(--text);
+  background: rgba(50,59,76,0.55);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 50px;
   padding: 6px 8px;
-  box-shadow: 0 8px 32px rgba(50,59,76,0.22);
+  box-shadow: 0 8px 32px rgba(50,59,76,0.18);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s, transform 0.25s;
