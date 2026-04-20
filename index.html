@@ -7,599 +7,158 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --white:  #ffffff;
-      --bg:     #ebeef4;
-      --text:   #323b4c;
-      --border: #c9d2e4;
-      --muted:  #5a6478;
-      --radius: 16px;
-    }
-
-    body {
-      font-family: 'Figtree', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding: 40px 20px 80px;
-    }
-
-    /* ─── PAGE WRAPPER ─── */
-    .page-wrapper {
-      max-width: 980px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-    }
-
-    /* ══════════════════════════════════════
-       CV PAPER
-    ══════════════════════════════════════ */
-    .cv {
-      background: var(--white);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: 0 6px 40px rgba(50,59,76,0.09);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-    }
-
-    /* ── LEFT SIDEBAR ── */
-    .sidebar {
-      background: var(--bg);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar__photo-wrap {
-      width: 100%;
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .sidebar__photo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-    }
-
-    .sidebar__content {
-      padding: 36px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 34px;
-    }
-
-    /* ── RIGHT MAIN ── */
-    .cv-main {
-      background: var(--white);
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header strip */
-    .cv-main__header {
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      padding: 48px 52px 36px;
-    }
-
-    /* T1 — CV name */
-    .cv-main__name {
-      font-size: 3.2rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .cv-main__rule {
-      width: 56px;
-      height: 2px;
-      background: var(--border);
-      margin: 16px 0 14px;
-    }
-
-    /* T5 — objet tagline */
-    .cv-main__objet {
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .cv-main__objet strong { color: var(--text); font-weight: 600; }
-
-    .cv-main__body {
-      padding: 44px 52px;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      flex: 1;
-    }
-
-    /* T3 — section labels */
-    .sec-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.68rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .sec-title img { width: 18px; height: 18px; opacity: 0.5; }
-
-    .sec-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-      margin-left: 8px;
-    }
-
-    /* T2 — sidebar section titles */
-    .sidebar .sec-title {
-      font-size: 0.65rem;
-      letter-spacing: 1.8px;
-    }
-
-    /* ── CONTACT LIST ── */
-    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
-
-    .contact-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      font-size: 0.92rem;
-      font-weight: 400;
-      color: var(--text);
-      line-height: 1.45;
-    }
-
-    .contact-list li img { width: 18px; height: 18px; opacity: 0.5; margin-top: 2px; flex-shrink: 0; }
-
-    /* ── EDU LIST ── */
-    .edu-list { display: flex; flex-direction: column; gap: 18px; }
-
-    /* T4 — school name */
-    .edu-item__period { font-size: 0.74rem; font-weight: 500; color: var(--muted); margin-bottom: 3px; letter-spacing: 0.3px; }
-    .edu-item__school { font-size: 0.97rem; font-weight: 700; line-height: 1.3; color: var(--text); }
-    .edu-item__degree { font-size: 0.84rem; font-weight: 400; color: var(--muted); margin-top: 2px; line-height: 1.4; }
-    .edu-item__mention {
-      display: inline-block;
-      margin-top: 5px;
-      font-size: 0.70rem;
-      font-weight: 700;
-      background: var(--border);
-      color: var(--text);
-      padding: 2px 9px;
-      border-radius: 20px;
-      letter-spacing: 0.3px;
-    }
-
-    /* ── LANG LIST ── */
-    .lang-list { display: flex; flex-direction: column; gap: 10px; }
-
-    .lang-item { display: flex; align-items: center; justify-content: space-between; }
-    .lang-item__name { font-size: 0.93rem; font-weight: 500; color: var(--text); }
-    .lang-item__badge {
-      font-size: 0.68rem;
-      font-weight: 800;
-      background: var(--text);
-      color: var(--white);
-      padding: 2px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    /* ── HOBBY LIST ── */
-    .hobby-list { display: flex; flex-direction: column; gap: 8px; }
-
-    .hobby-item { display: flex; align-items: center; gap: 9px; font-size: 0.93rem; font-weight: 400; color: var(--text); }
-    .hobby-item img { width: 18px; height: 18px; opacity: 0.45; }
-
-    /* ── EXPERIENCE TIMELINE ── */
-    .exp-list { display: flex; flex-direction: column; gap: 0; }
-
-    .exp-item {
-      position: relative;
-      padding-left: 20px;
-      padding-bottom: 28px;
-    }
-
-    .exp-item:last-child { padding-bottom: 0; }
-
-    .exp-item::before {
-      content: '';
-      position: absolute;
-      left: 4px; top: 12px; bottom: 0;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .exp-item:last-child::before { display: none; }
-
-    .exp-item::after {
-      content: '';
-      position: absolute;
-      left: 0; top: 10px;
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--white);
-      border: 2px solid var(--border);
-    }
-
-    /* T4 — experience role */
-    .exp-item__role {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.3;
-      margin-bottom: 3px;
-    }
-
-    .exp-item__year {
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: var(--muted);
-    }
-
-    /* T5 — company */
-    .exp-item__company { font-size: 0.88rem; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
-
-    /* T6 — body text */
-    .exp-item__desc { font-size: 0.88rem; font-weight: 400; color: var(--muted); line-height: 1.7; }
-
-    /* ── SKILLS GRID ── */
-    .skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-
-    .skill-chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 0.86rem;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .skill-chip img { width: 17px; height: 17px; opacity: 0.5; }
-
-    /* ══════════════════════════════════════
-       EXTRA SECTIONS (below the CV)
-    ══════════════════════════════════════ */
-    .extra-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .extra-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 4px 24px rgba(50,59,76,0.07);
-      overflow: hidden;
-    }
-
-    .extra-card__head {
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      padding: 26px 34px 22px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .extra-card__head-icon {
-      width: 36px; height: 36px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .extra-card__head-icon img { width: 18px; height: 18px; opacity: 0.6; }
-    .extra-card__head-icon img.ymg-icon { filter: invert(1); opacity: 1; }
-
-    .extra-card__label {
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--muted);
-      margin-bottom: 3px;
-    }
-
-    .extra-card__title { font-size: 1.15rem; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
-
-    .extra-card__body { padding: 32px 34px; }
-
-    /* Theater quote */
-    .theater-quote {
-      font-size: 0.92rem;
-      font-weight: 400;
-      color: var(--muted);
-      line-height: 1.8;
-      font-style: italic;
-      border-left: 3px solid var(--border);
-      padding-left: 18px;
-      margin-bottom: 24px;
-    }
-
-    .theater-quote strong { color: var(--text); font-style: normal; font-weight: 700; }
-
-    .dl-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: var(--text);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.83rem;
-      font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 10px;
-      transition: opacity 0.15s;
-    }
-
-    .dl-btn:hover { opacity: 0.85; }
-    .dl-btn img { width: 15px; height: 15px; filter: invert(1); opacity: 0.85; }
-
-    /* YMG project */
-    .ymg-logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .ymg-logo img { width: 52px; height: 52px; filter: invert(1); }
-
-    .ymg-logo__text { font-size: 1.8rem; font-weight: 800; color: var(--text); letter-spacing: -1.5px; }
-
-    .ymg-desc {
-      font-size: 0.92rem;
-      font-weight: 400;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 18px;
-    }
-
-    .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
-
-    .ymg-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 4px;
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1px;
-      transition: opacity 0.15s;
-    }
-
-    .ymg-link:hover { opacity: 0.6; }
-    .ymg-link img { width: 14px; height: 14px; opacity: 0.5; }
-
-    .tag {
-      font-size: 0.74rem;
-      font-weight: 600;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-
-    /* ── CV DOWNLOAD BAR ── */
-    .cv-download-bar {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      box-shadow: 0 2px 12px rgba(50,59,76,0.06);
-    }
-
-    .cv-download-bar__left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .cv-download-bar__icon {
-      width: 40px; height: 40px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .cv-download-bar__icon img { width: 18px; height: 18px; opacity: 0.5; }
-
-    .cv-download-bar__label {
-      font-size: 0.70rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.1px;
-      color: var(--muted);
-      margin-bottom: 2px;
-    }
-
-    .cv-download-bar__name {
-      font-size: 0.90rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      .cv { grid-template-columns: 1fr; }
-      .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
-      .sidebar__photo-wrap { aspect-ratio: 4/3; }
-      .cv-main__name { font-size: 1.9rem; }
-      .cv-main__header { padding: 24px 24px 20px; }
-      .cv-main__body { padding: 24px; }
-      .extra-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div class="page-wrapper">
 
+  <!-- ══ FLOATING NAV ══ -->
+  <nav class="float-nav" id="float-nav">
+    <a class="float-nav__item float-nav__item--active" href="#section-cv">CV</a>
+    <a class="float-nav__item" href="#section-theatre">Théâtre</a>
+    <a class="float-nav__item" href="#section-ymg">YMG</a>
+  </nav>
+
   <!-- ══ CV PAPER ══ -->
-  <div class="cv">
+  <div class="cv" id="section-cv">
 
-    <!-- LEFT SIDEBAR -->
-    <aside class="sidebar">
+    <!-- 1. PHOTO -->
+    <div class="cv-photo">
+      <img src="images/IMG_1832.jpeg" alt="ARROUJI Karim" />
+    </div>
 
-      <div class="sidebar__photo-wrap">
-        <img src="images/IMG_1832.jpeg" alt="ARROUJI Karim" />
+    <!-- 2. HEADER -->
+    <div class="cv-header">
+      <div class="cv-header__badges">
+        <div class="cv-header__badge">
+          <span class="cv-header__badge-dot"></span>
+          Disponible — Juin à Septembre 2026
+        </div>
+        <div class="cv-header__badge">
+          Permis B · Véhiculé
+        </div>
       </div>
+      <h1 class="cv-header__name">ARROUJI Karim</h1>
+      <div class="cv-header__rule"></div>
+      <p class="cv-header__objet"><strong>Objet :</strong> Recherche d'emploi étudiant durant la saison estivale de Juin - Septembre 2026.</p>
+    </div>
 
-      <div class="sidebar__content">
+    <!-- 3. INFO -->
+    <div class="cv-info">
 
-        <!-- Contact -->
-        <section>
-          <h2 class="sec-title">Contact</h2>
-          <ul class="contact-list">
-            <li><img src="icons/phone.svg" alt="" />07 69 09 34 09</li>
-            <li><img src="icons/message.svg" alt="" />aroujikarim@gmail.com</li>
-            <li><img src="icons/pad.svg" alt="" />12 Rue Debès, 34500 Béziers</li>
-            <li><img src="icons/secure.svg" alt="" />Permis B</li>
-          </ul>
-        </section>
+      <section>
+        <h2 class="sec-title">Contact</h2>
+        <ul class="contact-list">
+          <li><img src="icons/phone.svg" alt="" /><a href="tel:+33769093409">07 69 09 34 09</a></li>
+          <li><img src="icons/message.svg" alt="" /><a href="mailto:aroujikarim@gmail.com">aroujikarim@gmail.com</a></li>
+          <li><img src="icons/pad.svg" alt="" />12 Rue Debès, 34500 Béziers</li>
+          <li><img src="icons/secure.svg" alt="" />Permis B</li>
+        </ul>
+      </section>
 
-        <!-- Formation -->
-        <section>
-          <h2 class="sec-title">Formation</h2>
-          <div class="edu-list">
-            <div class="edu-item">
-              <div class="edu-item__period">2023 - En cours</div>
-              <div class="edu-item__school">UP Valéry - Béziers</div>
-              <div class="edu-item__degree">Licence Information-Communication</div>
-            </div>
-            <div class="edu-item">
-              <div class="edu-item__period">2022 - 2023</div>
-              <div class="edu-item__school">UP Valéry - Montpellier</div>
-              <div class="edu-item__degree">Licence (L1) LLCER Anglais</div>
-            </div>
-            <div class="edu-item">
-              <div class="edu-item__period">2019 - 2022</div>
-              <div class="edu-item__school">Lycée Jean Moulin - Béziers</div>
-              <div class="edu-item__degree">Bac - Histoire Géopolitique, Sciences Politiques, NSI</div>
-              <span class="edu-item__mention">Mention Bien</span>
-            </div>
-            <div class="edu-item">
-              <div class="edu-item__period">2015 - 2019</div>
-              <div class="edu-item__school">Collège Paul Riquet - Béziers</div>
-              <div class="edu-item__degree">Brevet des Collèges</div>
-              <span class="edu-item__mention">Mention Très Bien</span>
-            </div>
+      <section>
+        <h2 class="sec-title">Formation</h2>
+        <div class="edu-list">
+          <div class="edu-item">
+            <div class="edu-item__period">2023 - En cours</div>
+            <div class="edu-item__school">UP Valéry - Béziers</div>
+            <div class="edu-item__degree">Licence Information-Communication</div>
           </div>
-        </section>
-
-        <!-- Langues -->
-        <section>
-          <h2 class="sec-title">Langues</h2>
-          <div class="lang-list">
-            <div class="lang-item"><span class="lang-item__name">Français</span><span class="lang-item__badge">Natif</span></div>
-            <div class="lang-item"><span class="lang-item__name">Anglais</span><span class="lang-item__badge">C1</span></div>
-            <div class="lang-item"><span class="lang-item__name">Espagnol</span><span class="lang-item__badge">B2</span></div>
+          <div class="edu-item">
+            <div class="edu-item__period">2022 - 2023</div>
+            <div class="edu-item__school">UP Valéry - Montpellier</div>
+            <div class="edu-item__degree">Licence (L1) LLCER Anglais</div>
           </div>
-        </section>
-
-        <!-- Loisirs -->
-        <section>
-          <h2 class="sec-title">Loisirs</h2>
-          <div class="hobby-list">
-            <div class="hobby-item">Cinématographie</div>
-            <div class="hobby-item">Lecture</div>
-            <div class="hobby-item">Musculation</div>
+          <div class="edu-item">
+            <div class="edu-item__period">2019 - 2022</div>
+            <div class="edu-item__school">Lycée Jean Moulin - Béziers</div>
+            <div class="edu-item__degree">Bac - Histoire Géopolitique, Sciences Politiques, NSI</div>
+            <span class="edu-item__mention">Mention Bien</span>
           </div>
-        </section>
-
-      </div>
-    </aside>
-
-    <!-- RIGHT MAIN -->
-    <main class="cv-main">
-
-      <div class="cv-main__header">
-        <h1 class="cv-main__name">ARROUJI Karim</h1>
-        <div class="cv-main__rule"></div>
-        <p class="cv-main__objet"><strong>Objet :</strong> Recherche d'emploi étudiant durant la saison estivale de Juin - Septembre 2026.</p>
-      </div>
-
-      <div class="cv-main__body">
-
-        <!-- Expériences -->
-        <section>
-          <h2 class="sec-title">Résumé des expériences</h2>
-          <div class="exp-list">
-
-            <div class="exp-item">
-              <div class="exp-item__role">Fondateur &amp; Président <span class="exp-item__year">- 2026</span></div>
-              <div class="exp-item__company">Association Éducative</div>
-              <p class="exp-item__desc">Chargé de communication, création de site web, gestion administrative, chargé des relations publiques, presse &amp; développement numérique.</p>
-            </div>
-
-            <div class="exp-item">
-              <div class="exp-item__role">Stagiaire en Communication <span class="exp-item__year">- 2026</span></div>
-              <div class="exp-item__company">Théâtre Beaux Arts - Montpellier</div>
-              <p class="exp-item__desc">Chargé de communication, accueil des clients, développement de la stratégie de communication numérique, chargé évènementiel &amp; relations publiques.</p>
-            </div>
-
-            <div class="exp-item">
-              <div class="exp-item__role">Stagiaire <span class="exp-item__year">- 2020</span></div>
-              <div class="exp-item__company">Pharmacie Chanoine - Béziers</div>
-              <p class="exp-item__desc">Accueil des clients, gestion des flux en magasin, assistance du personnel dans leurs tâches quotidiennes en pharmacie.</p>
-            </div>
-
+          <div class="edu-item">
+            <div class="edu-item__period">2015 - 2019</div>
+            <div class="edu-item__school">Collège Paul Riquet - Béziers</div>
+            <div class="edu-item__degree">Brevet des Collèges</div>
+            <span class="edu-item__mention">Mention Très Bien</span>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Compétences -->
-        <section>
-          <h2 class="sec-title">Compétences</h2>
-          <div class="skills-wrap">
-            <div class="skill-chip">Excellent Sens Relationnel</div>
-            <div class="skill-chip">Efficacité Stratégique</div>
-            <div class="skill-chip">Autonomie Opérationnelle</div>
-            <div class="skill-chip">Adaptabilité Accrue</div>
-            <div class="skill-chip">Pluridimensionnalité</div>
-            <div class="skill-chip">Communication Numérique</div>
-            <div class="skill-chip">Gestion Évènementielle</div>
-            <div class="skill-chip">Relations Publiques</div>
+      <section>
+        <h2 class="sec-title">Langues</h2>
+        <div class="lang-list">
+          <div class="lang-item"><span class="lang-item__name">Français</span><span class="lang-item__badge">Natif</span></div>
+          <div class="lang-item"><span class="lang-item__name">Anglais</span><span class="lang-item__badge">C1</span></div>
+          <div class="lang-item"><span class="lang-item__name">Espagnol</span><span class="lang-item__badge">B2</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="sec-title">Loisirs</h2>
+        <div class="hobby-list">
+          <div class="hobby-item">Cinématographie</div>
+          <div class="hobby-item">Lecture</div>
+          <div class="hobby-item">Musculation</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 4. BODY -->
+    <div class="cv-body">
+
+      <section>
+        <h2 class="sec-title">Résumé des expériences</h2>
+        <div class="exp-list">
+
+          <div class="exp-item">
+            <div class="exp-item__role">Fondateur &amp; Président <span class="exp-item__year">- 2026</span></div>
+            <div class="exp-item__company">Association Éducative <span class="exp-pill exp-pill--blue">En cours</span></div>
+            <p class="exp-item__desc">Chargé de communication, création de site web, gestion administrative, chargé des relations publiques, presse &amp; développement numérique.</p>
           </div>
-        </section>
 
-      </div>
-    </main>
+          <div class="exp-item">
+            <div class="exp-item__role">Stagiaire en Communication <span class="exp-item__year">- 2026</span></div>
+            <div class="exp-item__company">Théâtre Beaux Arts - Montpellier <span class="exp-pill exp-pill--green">Stage validé</span></div>
+            <p class="exp-item__desc">Chargé de communication, accueil des clients, développement de la stratégie de communication numérique, chargé évènementiel &amp; relations publiques.</p>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-item__role">Stagiaire <span class="exp-item__year">- 2020</span></div>
+            <div class="exp-item__company">Pharmacie Chanoine - Béziers</div>
+            <p class="exp-item__desc">Accueil des clients, gestion des flux en magasin, assistance du personnel dans leurs tâches quotidiennes en pharmacie.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <section>
+        <h2 class="sec-title">Compétences</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <img src="icons/double-man.svg" alt="" />
+            <span>Excellent Sens Relationnel</span>
+          </div>
+          <div class="skill-card">
+            <img src="icons/secure.svg" alt="" />
+            <span>Efficacité Stratégique</span>
+          </div>
+          <div class="skill-card">
+            <img src="icons/laptop.svg" alt="" />
+            <span>Autonomie Opérationnelle</span>
+          </div>
+          <div class="skill-card">
+            <img src="icons/creative.svg" alt="" />
+            <span>Adaptabilité Accrue</span>
+          </div>
+          <div class="skill-card skill-card--full">
+            <img src="icons/spread.svg" alt="" />
+            <span>Pluridimensionnalité</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </div>
 
   <!-- ══ CV DOWNLOAD BAR ══ -->
@@ -607,8 +166,7 @@
     <div class="cv-download-bar__left">
       <div class="cv-download-bar__icon"><img src="icons/file.svg" alt="" /></div>
       <div>
-        <div class="cv-download-bar__label">Curriculum Vitae</div>
-        <div class="cv-download-bar__name">ARROUJI Karim - cv_ARROUJI.pdf</div>
+        <div class="cv-download-bar__name">CV ARROUJI Karim en PDF</div>
       </div>
     </div>
     <a class="dl-btn" href="cv_ARROUJI.pdf" download>
@@ -621,7 +179,7 @@
   <div class="extra-grid">
 
     <!-- THÉÂTRE BEAUX ARTS -->
-    <div class="extra-card">
+    <div class="extra-card" id="section-theatre">
       <div class="extra-card__head">
         <div class="extra-card__head-icon"><img src="icons/message.svg" alt="" /></div>
         <div>
@@ -631,11 +189,11 @@
       </div>
       <div class="extra-card__body">
         <blockquote class="theater-quote">
-          Karim a su <strong>très rapidement comprendre les enjeux de notre structure</strong> et s'adapter à nos besoins multiples, sachant travailler <strong>autant en équipe qu'en autonomie</strong>. Il a pu réaliser des tâches aussi diverses que la <strong>création de supports visuels</strong> pour les réseaux ou supports papier, <strong>participer à une interview radio</strong>, distribuer affiches et flyers en direct au potentiel public. Son <strong>aisance à communiquer à l'oral</strong>, que ce soit la prise de contact par téléphone ou en direct avec le public, est <strong>parfaitement adaptée</strong>.
+          Karim a su très rapidement comprendre les enjeux de notre structure et s'adapter à nos besoins multiples, sachant travailler autant en équipe qu'en autonomie. Il a pu réaliser des tâches aussi diverses que la création de supports visuels pour les réseaux ou supports papier, participer à une interview radio, distribuer affiches et flyers en direct au potentiel public. Son <strong>aisance à communiquer à l'oral</strong>, que ce soit la prise de contact par téléphone ou en direct avec le public, est parfaitement adaptée.
           <br /><br />
-          Il a notamment <strong>développé une communication ciblée</strong> vers des réseaux en lien avec les spectacles, pour <strong>créer des partenariats</strong> avec d'autres associations ou structures, passant de nombreux appels suivis de <strong>mails personnalisés</strong>.
+          Il a notamment développé une communication ciblée vers des réseaux en lien avec les spectacles, pour créer des partenariats avec d'autres associations ou structures, passant de nombreux appels suivis de mails personnalisés.
           <br /><br />
-          Karim a su se montrer <strong>polyvalent et investi</strong> tout au long de son stage. Sa <strong>capacité d'initiative</strong> et son <strong>ouverture d'esprit</strong> lui ont permis de mener à bien ses missions. Sa <strong>vivacité d'esprit</strong>, son <strong>sens relationnel</strong>, son <strong>énergie volontaire</strong>, m'ont amenée à lui confier différentes tâches dans une véritable <strong>confiance de collaboration</strong>.
+          Karim a su se montrer <strong>polyvalent et investi</strong> tout au long de son stage. Sa capacité d'initiative et son ouverture d'esprit lui ont permis de mener à bien ses missions. Sa vivacité d'esprit, son sens relationnel, son énergie volontaire, m'ont amenée à lui confier différentes tâches dans une véritable confiance de collaboration.
           <br /><br />
           <strong>Toute l'équipe salue le travail et l'engagement de Karim, qui ont été un véritable soutien à notre association.</strong>
         </blockquote>
@@ -647,7 +205,7 @@
     </div>
 
     <!-- YMG PROJECT -->
-    <div class="extra-card">
+    <div class="extra-card" id="section-ymg">
       <div class="extra-card__head">
         <div class="extra-card__head-icon"><img src="images/ymg-y-icon.svg" alt="" class="ymg-icon" /></div>
         <div>
@@ -657,7 +215,9 @@
       </div>
       <div class="extra-card__body">
         <div class="ymg-logo">
-          <img src="images/ymg-y-icon.svg" alt="YMG" />
+          <div class="ymg-logo__circle">
+            <img src="images/ymg-y-icon.svg" alt="YMG" />
+          </div>
           <span class="ymg-logo__text">YMG</span>
         </div>
         <p class="ymg-desc">
@@ -666,15 +226,7 @@
         <p class="ymg-desc">
           En tant que fondateur, Karim assure l'intégralité des missions : <strong>création et gestion du site web</strong>, stratégie de communication, <strong>relations publiques et presse</strong>, gestion administrative, développement numérique et représentation de la structure. Une structure pilotée en autonomie totale.
         </p>
-        <div class="tag-row">
-          <span class="tag">Éducation</span>
-          <span class="tag">Développement web</span>
-          <span class="tag">Communication</span>
-          <span class="tag">Relations presse</span>
-          <span class="tag">Gestion administrative</span>
-          <span class="tag">Relations publiques</span>
-        </div>
-        <a class="dl-btn" href="https://entiteymg.com" target="_blank" rel="noopener">
+        <a class="dl-btn" href="https://ymgentity.com" target="_blank" rel="noopener">
           <img src="icons/laptop.svg" alt="" />
           Visitez le site YMG
         </a>
@@ -684,5 +236,22 @@
   </div>
 
 </div>
+<script>
+  const sections = ['section-cv','section-theatre','section-ymg'];
+  const items    = document.querySelectorAll('.float-nav__item');
+  const nav      = document.getElementById('float-nav');
+
+  window.addEventListener('scroll', () => {
+    let current = sections[0];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    items.forEach(a => {
+      a.classList.toggle('float-nav__item--active', a.getAttribute('href') === '#' + current);
+    });
+    nav.classList.toggle('float-nav--visible', window.scrollY > 80);
+  });
+</script>
 </body>
 </html>
